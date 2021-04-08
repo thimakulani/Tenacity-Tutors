@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="7dp"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:id="@+id/row_chat_user_img"
+            android:src="@drawable/baseline_account_circle_black_24dp"
+            />
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/row_chat_user_name"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:layout_toEndOf="@+id/row_chat_user_img"
+            />
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

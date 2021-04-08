@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="4dp"
+    style="@style/Theme.MyTutor"
+    android:theme="@style/Theme.MyTutor"
+    app:cardBackgroundColor="@color/cardview_shadow_start_color"
+    >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_announcement"
+            android:drawablePadding="5dp"
+            android:layout_margin="10dp"
+            android:drawableStart="@drawable/baseline_question_answer_black_24dp"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black"
+            />
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_date_time"
+            android:drawablePadding="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:drawableStart="@drawable/baseline_calendar_today_black_24dp"
+            />
+    </LinearLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

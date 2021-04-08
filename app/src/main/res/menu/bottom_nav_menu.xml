@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottom_nav_home"
+        android:icon="@drawable/baseline_list_alt_black_24dp"
+        android:title="@string/nav_home" />
+    <item
+        android:id="@+id/nav_appointments"
+        android:icon="@drawable/baseline_calendar_today_black_24dp"
+        android:title="@string/nav_appointment" />
+    <item
+        android:id="@+id/nav_messages"
+        android:icon="@drawable/baseline_mail_outline_black_24dp"
+        android:title="@string/nav_messaging" />
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/baseline_account_circle_black_24dp"
+        android:title="@string/nav_account" />
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/baseline_login_black_24dp"
+        android:title="@string/nav_exit" />
+</menu>

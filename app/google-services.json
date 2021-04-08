@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "278918925907",
+    "project_id": "tenacity-tutors",
+    "storage_bucket": "tenacity-tutors.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:278918925907:android:765200333dcd1d6ca000a6",
+        "android_client_info": {
+          "package_name": "com.que.mytutor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "278918925907-48jv4od1e3gt9jkdrscp3vm89frc5hdi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqyDgbgfoCi5eu8_2ZeqhYjxtkfT_Gdh4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "278918925907-48jv4od1e3gt9jkdrscp3vm89frc5hdi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
