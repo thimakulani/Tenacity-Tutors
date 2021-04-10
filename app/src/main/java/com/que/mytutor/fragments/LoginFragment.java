@@ -92,7 +92,7 @@ public class LoginFragment extends Fragment {
 
         }
         catch (Exception ex){
-            Toast.makeText(context, "Xxx", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
 

@@ -21,7 +21,7 @@
             android:text="@string/app_name"
             android:textStyle="bold"
             android:textColor="#ffffff"
-            android:textSize="35sp"
+            android:textSize="20sp"
             />
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
@@ -29,7 +29,6 @@
             android:text="@string/sign_up_caption"
             android:textColor="#ffffff"
             android:textStyle="bold"
-            android:textSize="30sp"
             />
     </LinearLayout>
     <LinearLayout
@@ -42,21 +41,25 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_margin="10dp"
-            app:boxCornerRadiusBottomEnd="15dp"
+            app:boxCornerRadiusBottomEnd="20dp"
             app:boxStrokeWidth="2dp"
-            app:boxCornerRadiusBottomStart="15dp"
-            app:boxCornerRadiusTopEnd="15dp"
-            app:boxCornerRadiusTopStart="15dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/white"
             app:hintTextColor="@color/white"
             android:textColorHint="@color/white"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_height="wrap_content">
+            style="@style/InputStyles"
+            android:layout_height="wrap_content"
+            >
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/input_email"
+                android:drawableStart="@drawable/baseline_mail_outline_white_24dp"
+                android:drawablePadding="5dp"
                 android:textColor="@color/white"
+                android:digits="@string/email_inputs"
                 android:id="@+id/login_input_email"
                 android:inputType="textEmailAddress"
 
@@ -65,20 +68,22 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_margin="10dp"
-            app:boxCornerRadiusBottomEnd="15dp"
+            app:boxCornerRadiusBottomEnd="20dp"
             app:boxStrokeWidth="2dp"
-            app:boxCornerRadiusBottomStart="15dp"
-            app:boxCornerRadiusTopEnd="15dp"
-            app:boxCornerRadiusTopStart="15dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/white"
             app:hintTextColor="@color/white"
             android:textColorHint="@color/white"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/InputStyles"
             android:layout_height="wrap_content">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/input_password"
+                android:drawableStart="@drawable/baseline_lock_white_24dp"
+                android:drawablePadding="5dp"
                 android:textColor="@color/white"
                 android:id="@+id/login_input_password"
                 android:inputType="textPassword"

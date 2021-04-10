@@ -50,16 +50,16 @@
                 >
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_margin="5dp"
-                    app:boxCornerRadiusBottomEnd="15dp"
+                    android:layout_margin="10dp"
+                    app:boxCornerRadiusBottomEnd="20dp"
                     app:boxStrokeWidth="2dp"
-                    app:boxCornerRadiusBottomStart="3dp"
-                    app:boxCornerRadiusTopEnd="3dp"
-                    app:boxCornerRadiusTopStart="15dp"
+                    app:boxCornerRadiusBottomStart="20dp"
+                    app:boxCornerRadiusTopEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
                     app:boxStrokeColor="@color/white"
                     app:hintTextColor="@color/white"
                     android:textColorHint="@color/white"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/InputStyles"
                     android:layout_height="wrap_content">
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -73,16 +73,16 @@
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_margin="5dp"
-                    app:boxCornerRadiusBottomEnd="15dp"
+                    android:layout_margin="10dp"
+                    app:boxCornerRadiusBottomEnd="20dp"
                     app:boxStrokeWidth="2dp"
-                    app:boxCornerRadiusBottomStart="15dp"
-                    app:boxCornerRadiusTopEnd="15dp"
-                    app:boxCornerRadiusTopStart="15dp"
+                    app:boxCornerRadiusBottomStart="20dp"
+                    app:boxCornerRadiusTopEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
                     app:boxStrokeColor="@color/white"
                     app:hintTextColor="@color/white"
                     android:textColorHint="@color/white"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/InputStyles"
                     android:layout_height="wrap_content">
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -96,16 +96,16 @@
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_margin="5dp"
-                    app:boxCornerRadiusBottomEnd="15dp"
+                    android:layout_margin="10dp"
+                    app:boxCornerRadiusBottomEnd="20dp"
                     app:boxStrokeWidth="2dp"
-                    app:boxCornerRadiusBottomStart="15dp"
-                    app:boxCornerRadiusTopEnd="15dp"
-                    app:boxCornerRadiusTopStart="15dp"
+                    app:boxCornerRadiusBottomStart="20dp"
+                    app:boxCornerRadiusTopEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
                     app:boxStrokeColor="@color/white"
                     app:hintTextColor="@color/white"
                     android:textColorHint="@color/white"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/InputStyles"
                     android:layout_height="wrap_content">
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -120,16 +120,16 @@
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_margin="5dp"
-                    app:boxCornerRadiusBottomEnd="15dp"
+                    android:layout_margin="10dp"
+                    app:boxCornerRadiusBottomEnd="20dp"
                     app:boxStrokeWidth="2dp"
-                    app:boxCornerRadiusBottomStart="15dp"
-                    app:boxCornerRadiusTopEnd="15dp"
-                    app:boxCornerRadiusTopStart="15dp"
+                    app:boxCornerRadiusBottomStart="20dp"
+                    app:boxCornerRadiusTopEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
                     app:boxStrokeColor="@color/white"
                     app:hintTextColor="@color/white"
                     android:textColorHint="@color/white"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/InputStyles"
                     android:layout_height="wrap_content">
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -143,22 +143,24 @@
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="10dp"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxStrokeWidth="2dp"
+                    app:boxCornerRadiusBottomStart="20dp"
+                    app:boxCornerRadiusTopEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
                     app:boxStrokeColor="@color/white"
                     app:hintTextColor="@color/white"
                     android:textColorHint="@color/white"
-                    app:boxCornerRadiusBottomEnd="15dp"
-                    app:boxCornerRadiusBottomStart="15dp"
-                    app:boxCornerRadiusTopEnd="15dp"
-                    app:boxCornerRadiusTopStart="15dp"
+                    style="@style/InputStyles"
+                    android:layout_height="wrap_content"
 
                     >
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/input_password"
+
                         android:textColor="@color/white"
                         android:inputType="textPassword"
                         android:id="@+id/sign_up_input_password"
@@ -173,7 +175,7 @@
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="10dp"
                     android:text="@string/btn_sign_up"
                     android:textColor="#ffffff"
                     app:backgroundTint="#FF363640"

@@ -43,7 +43,6 @@ public class SignupFragment extends Fragment {
     private void ConnectViews(View view) {
         MaterialButton btnBackToLogin = view.findViewById(R.id.sign_up_btn_login);
         MaterialButton btnRegister =  view.findViewById(R.id.sign_up_btn_register);
-
         TextInputEditText InputName = view.findViewById(R.id.sign_up_input_names);
         TextInputEditText InputLastname = view.findViewById(R.id.sign_up_input_lastname);
         TextInputEditText InputEmail =  view.findViewById(R.id.sign_up_input_email);
