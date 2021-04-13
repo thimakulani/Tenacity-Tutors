@@ -19,7 +19,7 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementHolder
         Items = items;
     }
 
-    private List<Announcement> Items;
+    private List<Announcement> Items = new ArrayList<>();
     @NonNull
     @Override
     public AnnouncementHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -30,8 +30,8 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementHolder
 
     @Override
     public void onBindViewHolder(@NonNull AnnouncementHolder holder, int position) {
-        holder.txt_announcement.setText(Items.get(position).getAnnouncement());
-        holder.txt_date_time.setText(Items.get(position).getDate_time());
+        holder.txt_announcement.setText(Items.get(position).getMessage());
+        holder.txt_date_time.setText(Items.get(position).getDatetime());
     }
 
     @Override
