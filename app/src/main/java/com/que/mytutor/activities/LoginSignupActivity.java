@@ -17,16 +17,11 @@ public class LoginSignupActivity extends AppCompatActivity implements FragmentCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_signup);
-        try {
-            LoginFragment frag = new LoginFragment(this);
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.FragHost, frag)
-                    .commit();
-        }
-        catch (Exception ex)
-        {
-            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
-        }
+
+        LoginFragment frag = new LoginFragment(this);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.FragHost, frag)
+                .commit();
 
 
     }

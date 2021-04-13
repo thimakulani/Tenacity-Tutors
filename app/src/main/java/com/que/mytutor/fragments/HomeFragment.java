@@ -4,12 +4,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.que.mytutor.R;
 import com.que.mytutor.adapters.AnnouncementAdapter;
 import com.que.mytutor.adapters.MentorsAdapter;
@@ -43,31 +51,31 @@ public class HomeFragment extends Fragment {
         ConnectViews(view);
         return view;
     }
-    private final List<Mentors> Items = new ArrayList<>();
     private void ConnectViews(View view) {
-        RecyclerView recycler_tutors = (RecyclerView) view.findViewById(R.id.RecyclerMentors);
         RecyclerView recycler_announcement = (RecyclerView) view.findViewById(R.id.RecyclerAnnouncement);
-        SearchView SearchMentor = (SearchView) view.findViewById(R.id.SearchMentors);
-        ArrayList<Mentors> Items = new ArrayList<>();
 
+        List<Announcement> Items = new ArrayList<>();
 
+        FirebaseFirestore.getInstance()
+                .collection("Announcements")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if(value != null && !value.isEmpty())
+                        {
+                            for (DocumentChange item : value.getDocumentChanges()){
+                                if(item.getType() == DocumentChange.Type.ADDED){
+                                    Items.add(item.getDocument().toObject(Announcement.class));
 
-        for (int i = 0; i < 20; i++){
-            Items.add(new Mentors("Thima" + i, "Sigauque" +1, "1","Male", "https://picsum.photos/id/237/200/300","Desc"));
-        }
+                                }
 
-        MentorsAdapter adapter = new MentorsAdapter(Items, getChildFragmentManager());
-        recycler_tutors.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recycler_tutors.setAdapter(adapter);
-
-        List<Announcement> announce = new ArrayList<>();
-        announce.add(new Announcement("2020/02/15", "Welcome to " + getString(R.string.app_name)));
-        announce.add(new Announcement("2020/02/15", "Welcome to " + getString(R.string.app_name)));
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
-        linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        recycler_announcement.setLayoutManager(linearLayoutManager);
-        AnnouncementAdapter announce_adapter = new AnnouncementAdapter(announce);
+                            }
+                        }
+                    }
+                });
+        AnnouncementAdapter announce_adapter = new AnnouncementAdapter(Items);
         recycler_announcement.setAdapter(announce_adapter);
+        announce_adapter.notifyDataSetChanged();
 
 
     }

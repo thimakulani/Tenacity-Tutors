@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.que.mytutor.R;
 import com.que.mytutor.fragments.AppointmentFragment;
 import com.que.mytutor.fragments.HomeFragment;
@@ -75,6 +76,7 @@ public class HomePage extends AppCompatActivity {
                 selected = R.id.nav_messages;
             }
             if(item.getItemId() == R.id.nav_logout){
+                FirebaseAuth.getInstance().signOut();
                 finish();
             }
 

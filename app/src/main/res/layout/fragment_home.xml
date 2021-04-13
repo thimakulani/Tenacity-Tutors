@@ -10,18 +10,4 @@
         android:layout_height="wrap_content"
         android:id="@+id/RecyclerAnnouncement"
         />
-
-    <androidx.appcompat.widget.SearchView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/SearchMentors"
-        android:layout_below="@+id/RecyclerAnnouncement"
-        />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/SearchMentors"
-        android:id="@+id/RecyclerMentors"/>
-
 </RelativeLayout>

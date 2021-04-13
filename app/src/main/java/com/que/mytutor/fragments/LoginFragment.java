@@ -2,17 +2,23 @@ package com.que.mytutor.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.cazaea.sweetalert.SweetAlertDialog;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.que.mytutor.R;
 import com.que.mytutor.activities.HomePage;
@@ -71,16 +77,24 @@ public class LoginFragment extends Fragment {
                     InputPassword.setError("Password cannot be empty");
                     return;
                 }
-                LoadingDialogFragment loading = new LoadingDialogFragment("Logging in");
-                loading.show(getChildFragmentManager().beginTransaction(), "Loading");
+                SweetAlertDialog pDialog = new SweetAlertDialog(view.getContext(), SweetAlertDialog.PROGRESS_TYPE);
+                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                pDialog.setTitleText("Loading");
+                pDialog.setCancelable(false);
+                pDialog.show();
                 FirebaseAuth.getInstance()
                         .signInWithEmailAndPassword(InputEmail.getText().toString().trim(), InputPassword.getText().toString().trim())
                         .addOnSuccessListener(authResult -> {
                             Intent intent = new Intent(context, HomePage.class);
                             startActivity(intent);
-                        }).addOnFailureListener(e -> {
+                        }).addOnFailureListener(e ->
+                {
+                    pDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
 
-                        }).addOnCompleteListener(task -> loading.dismiss());
+                    pDialog.setTitleText("Oops...");
+                    pDialog.setContentText(e.getMessage());
+                    pDialog.setConfirmText("OK");
+                        });
 
 
             });
