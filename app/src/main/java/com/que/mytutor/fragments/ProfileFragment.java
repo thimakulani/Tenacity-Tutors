@@ -74,7 +74,7 @@ public class ProfileFragment extends Fragment {
         BtnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StudModel studModel = new StudModel(profile_input_name.getText().toString(), profile_input_surname.getText().toString(), profile_input_email.getText().toString(), profile_input_phone.getText().toString());
+                //StudModel studModel = new StudModel(profile_input_name.getText().toString(), profile_input_surname.getText().toString(), profile_input_email.getText().toString(), profile_input_phone.getText().toString());
                 HashMap<String, Object> data = new HashMap<>();
                 data.put("name", profile_input_name.getText().toString().trim());
                 data.put("surname", profile_input_surname.getText().toString().trim());

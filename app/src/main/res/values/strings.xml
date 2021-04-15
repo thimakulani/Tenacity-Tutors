@@ -39,4 +39,7 @@
     <string name="txt_developed_by"><![CDATA[Developed by Thima & James]]></string>
     <string name="txt_more">more</string>
     <string name="phone_digits">0123456789</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="select_name">Select name</string>
 </resources>

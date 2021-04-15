@@ -10,8 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.que.mytutor.R;
 import com.que.mytutor.adapters.AppointmentAdapter;
+import com.que.mytutor.dialogs.AddAppointmentFragment;
 import com.que.mytutor.model.Appointment;
 
 import java.util.ArrayList;
@@ -46,9 +48,19 @@ public class AppointmentFragment extends Fragment {
 
     private void ConnectViews(View view) {
         RecyclerView recycler = (RecyclerView)view.findViewById(R.id.RecyclerAppointment);
-        Items.add(new Appointment("XCVBNM","XCVBNM","2020/02/13","Approved"));
-        Items.add(new Appointment("XCVBNM","XCVBNM","2020/02/13","Approved"));
-        Items.add(new Appointment("XCVBNM","XCVBNM","2020/02/13","Approved"));
+
+        FloatingActionButton fab_add_appointment = view.findViewById(R.id.fab_add_appointment);
+
+        fab_add_appointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AddAppointmentFragment app = new AddAppointmentFragment();
+                app.setCancelable(false);
+                app.show(getChildFragmentManager(), "Appointment");
+
+            }
+        });
 
         recycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
         AppointmentAdapter adapter = new AppointmentAdapter(Items);
