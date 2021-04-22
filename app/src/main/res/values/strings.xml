@@ -27,7 +27,7 @@
     <string name="text_tor">OR</string>
     <string name="email_inputs">ABCDEFGHIJKLMNOPQRSTUVWXYZ_1234678910@abcdefghijklmnopqrstuvwxyz.</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="developed_by">Developed by Thima</string>
+    <string name="developed_by">Developed by Thapelo</string>
     <string name="password_reset_caption">Please provide your email to reset your password</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="str_available">Available</string>
@@ -36,10 +36,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="txt_cancel">Cancel</string>
-    <string name="txt_developed_by"><![CDATA[Developed by Thima & James]]></string>
+    <string name="txt_developed_by"><![CDATA[Developed by Thapelo]]></string>
     <string name="txt_more">more</string>
     <string name="phone_digits">0123456789</string>
     <string name="date">Date</string>
     <string name="time">Time</string>
-    <string name="select_name">Select name</string>
+    <string name="select_name">Select Subject</string>
+    <string name="please_select_the_required">PLEASE SELECT THE REQUIRED</string>
+    <string name="submit">SUBMIT</string>
 </resources>

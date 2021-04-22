@@ -1,7 +1,10 @@
 package com.que.mytutor.fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,8 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.que.mytutor.R;
 import com.que.mytutor.adapters.AppointmentAdapter;
 import com.que.mytutor.dialogs.AddAppointmentFragment;
@@ -57,7 +67,7 @@ public class AppointmentFragment extends Fragment {
 
                 AddAppointmentFragment app = new AddAppointmentFragment();
                 app.setCancelable(false);
-                app.show(getChildFragmentManager(), "Appointment");
+                app.show(getChildFragmentManager(), "Appointments");
 
             }
         });
@@ -65,5 +75,61 @@ public class AppointmentFragment extends Fragment {
         recycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
         AppointmentAdapter adapter = new AppointmentAdapter(Items);
         recycler.setAdapter(adapter);
+        try {
+
+
+            FirebaseFirestore.getInstance().collection("Appointments")
+                    .whereEqualTo("stud_id", FirebaseAuth.getInstance().getUid())
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @RequiresApi(api = Build.VERSION_CODES.N)
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                            if (error != null) {
+                                Toast.makeText(view.getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                            if (value != null) {
+                                for (DocumentChange dc : value.getDocumentChanges()) {
+                                    switch (dc.getType()) {
+                                        case ADDED:
+                                            Appointment app = dc.getDocument().toObject(Appointment.class);
+                                            app.setId(dc.getDocument().getId());
+                                            Items.add(app);
+                                            adapter.notifyDataSetChanged();
+                                            break;
+                                        case MODIFIED:
+                                            try {
+
+                                                for (Appointment a : Items)
+                                                {
+                                                    Appointment doc = dc.getDocument().toObject(Appointment.class);
+                                                    if (a.getId().contains(doc.getId())) {
+                                                        a = dc.getDocument().toObject(Appointment.class);
+                                                        adapter.notifyDataSetChanged();
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            catch (Exception ex){
+                                                Toast.makeText(view.getContext(), "Try:" + ex.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+
+                                            break;
+                                        case REMOVED:
+                                            break;
+                                    }
+                                }
+                            }
+                        }
+                    });
+        }
+        catch (Exception ex){
+            Toast.makeText(view.getContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+
+
+    }
+    private void selectSubjectDialog(){
+
     }
 }

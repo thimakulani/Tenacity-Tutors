@@ -1,40 +1,42 @@
 package com.que.mytutor.model;
 
 public class MessagesModel {
-    private String Date_Time;
-    private String Message;
-    private String Id;
+    private String dates;
+    private String text;
+    private String uid;
 
-    public MessagesModel(String date_Time, String message, String id) {
-        Date_Time = date_Time;
-        Message = message;
-        Id = id;
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public MessagesModel(String date_Time, String message, String uid) {
+        dates = date_Time;
+        text = message;
+        this.uid = uid;
     }
 
     public MessagesModel() {
     }
 
-    public String getDate_Time() {
-        return Date_Time;
+    public String getDates() {
+        return dates;
     }
 
-    public void setDate_Time(String date_Time) {
-        Date_Time = date_Time;
+    public void setDates(String dates) {
+        this.dates = dates;
     }
 
-    public String getMessage() {
-        return Message;
+    public String getText() {
+        return text;
     }
 
-    public void setMessage(String message) {
-        Message = message;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public String getId() {
-        return Id;
-    }
 
-    public void setId(String id) {
-        Id = id;
-    }
 }

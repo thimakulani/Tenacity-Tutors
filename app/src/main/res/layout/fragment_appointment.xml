@@ -18,6 +18,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         app:fabSize="mini"
+        app:tint="@color/white"
+        android:src="@drawable/baseline_addchart_white_24dp"
         tools:ignore="ContentDescription"
         android:layout_margin="10dp"
         />

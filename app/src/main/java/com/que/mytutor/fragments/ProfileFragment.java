@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.cazaea.sweetalert.SweetAlertDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
@@ -83,6 +84,11 @@ public class ProfileFragment extends Fragment {
                 FirebaseFirestore.getInstance().collection("Students")
                         .document(FirebaseAuth.getInstance().getUid())
                         .update(data);
+                new SweetAlertDialog(view.getContext(), SweetAlertDialog.SUCCESS_TYPE)
+                        .setTitleText("Success!!")
+                        .setContentText("Successfully updated")
+                        .setConfirmText("Ok")
+                        .show();
 
             }
         });

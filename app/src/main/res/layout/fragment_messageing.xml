@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_wrapper"
+        android:scrollbars="vertical"
         android:id="@+id/RecyclerMessages"
         />
 
@@ -23,12 +24,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textInputLayout1"
-            app:boxCornerRadiusTopStart="20dp"
-            app:boxCornerRadiusTopEnd="20dp"
-            app:boxCornerRadiusBottomStart="20dp"
-            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusTopStart="4dp"
+            app:boxCornerRadiusTopEnd="4dp"
+            app:boxCornerRadiusBottomStart="4dp"
+            app:boxCornerRadiusBottomEnd="4dp"
             android:layout_margin="5dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_toStartOf="@+id/FabSendMessage"
 
             >
@@ -49,6 +50,8 @@
             android:layout_marginBottom="5dp"
             android:layout_marginEnd="5dp"
             app:fabSize="mini"
+            app:tint="@color/white"
+            app:backgroundTint="@color/green_900"
             android:layout_centerVertical="true"
             android:src="@android:drawable/ic_menu_send"
             android:id="@+id/FabSendMessage"

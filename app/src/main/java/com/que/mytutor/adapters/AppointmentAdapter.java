@@ -3,20 +3,29 @@ package com.que.mytutor.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.que.mytutor.R;
 import com.que.mytutor.model.Appointment;
+import com.que.mytutor.model.Mentors;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentViewHolder>{
-    private List<Appointment> Items;
+    private final List<Appointment> Items;
 
     public AppointmentAdapter(List<Appointment> items) {
         Items = items;
@@ -32,12 +41,52 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentViewHold
 
     @Override
     public void onBindViewHolder(@NonNull AppointmentViewHolder holder, int position) {
-        holder.row_app_date_time.setText(Items.get(position).getTimeDate());
-        holder.row_app_status.setText(Items.get(position).getStatus());
-        holder.row_app_name.setText("Name");
+        try{
+
+            holder.row_app_date_time.setText(String.format("%s %s", Items.get(position).getDate(), Items.get(position).getDate()));
+            holder.row_app_status.setText(Items.get(position).getStatus());
+            if( Items.get(position).getMentor_id().equals("-")){
+                holder.row_app_name.setVisibility(View.GONE);
+            }
+            else{
+                FirebaseFirestore.getInstance()
+                        .collection("Mentors")
+                        .document(Items.get(position).getMentor_id())
+                        .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                if(value != null){
+                                    Mentors m = value.toObject(Mentors.class);
+                                    holder.row_app_name.setText(String.format("%s %s", m.getNames(), m.getSurname()));
+                                    holder.row_app_name.setVisibility(View.VISIBLE);
+                                }
+                            }
+                        });
+            }
+            if(!Items.get(position).getStatus().equals("Request")){
+                holder.row_app_btn_cancel.setVisibility(View.GONE);
+            }
+            else{
+                holder.row_app_btn_cancel.setVisibility(View.VISIBLE);
+            }
+        }
+        catch (Exception ex){
+            Toast.makeText(holder.itemView.getContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
+        }
         holder.row_app_btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+               try {
+
+
+                   FirebaseFirestore.getInstance()
+                           .collection("Appointments")
+                           .document(Items.get(position).getId())
+                           .update("status", "Cancelled");
+               }
+               catch (Exception ex){
+                   Toast.makeText(holder.itemView.getContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
+               }
 
             }
         });

@@ -72,7 +72,7 @@ public class HomePage extends AppCompatActivity {
                         .beginTransaction()
                         .replace(R.id.host_frag, new MessagingFragment())
                         .commit();
-                tool_bar.setTitle("Messaging");
+                tool_bar.setTitle("Chat With Admin");
                 selected = R.id.nav_messages;
             }
             if(item.getItemId() == R.id.nav_logout){
