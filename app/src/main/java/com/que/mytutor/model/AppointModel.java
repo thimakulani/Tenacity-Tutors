@@ -1,9 +1,8 @@
 package com.que.mytutor.model;
 
 import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.ServerTimestamp;
 
-public class Appointment {
+public class AppointModel {
     private String mentor_id;
     private String id;
     private String time;
@@ -13,23 +12,15 @@ public class Appointment {
     private String subject;
 
 
-    public FieldValue getTime_stamp() {
-        return time_stamp;
-    }
-
-    public void setTime_stamp(FieldValue time_stamp) {
-        this.time_stamp = time_stamp;
-    }
-    @ServerTimestamp
-    private FieldValue time_stamp;
 
 
-    public Appointment() {
+
+    public AppointModel() {
     }
 
 
 
-    public Appointment(String mentor_id, String id, String time, String date, String stud_id, String status, String subject, FieldValue fieldValue) {
+    public AppointModel(String mentor_id, String id, String time, String date, String stud_id, String status, String subject) {
         this.mentor_id = mentor_id;
         this.id = id;
         this.time = time;
@@ -37,8 +28,6 @@ public class Appointment {
         this.stud_id = stud_id;
         this.status = status;
         this.subject = subject;
-        time_stamp = fieldValue;
-
     }
     public String getSubject() {
         return subject;

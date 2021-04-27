@@ -17,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.que.mytutor.R;
+import com.que.mytutor.model.AppointModel;
 import com.que.mytutor.model.Appointment;
 import com.que.mytutor.model.Mentors;
 
@@ -25,9 +26,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentViewHolder>{
-    private final List<Appointment> Items;
+    private final List<AppointModel> Items;
 
-    public AppointmentAdapter(List<Appointment> items) {
+    public AppointmentAdapter(List<AppointModel> items) {
         Items = items;
     }
 
@@ -45,7 +46,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentViewHold
 
             holder.row_app_date_time.setText(String.format("%s %s", Items.get(position).getDate(), Items.get(position).getDate()));
             holder.row_app_status.setText(Items.get(position).getStatus());
-            if( Items.get(position).getMentor_id().equals("-")){
+            if( Items.get(position).getMentor_id() == null){
                 holder.row_app_name.setVisibility(View.GONE);
             }
             else{

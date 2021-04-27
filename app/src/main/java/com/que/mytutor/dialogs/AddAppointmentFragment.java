@@ -7,34 +7,29 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.ListAdapter;
-import android.widget.PopupMenu;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.cazaea.sweetalert.SweetAlertDialog;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.que.mytutor.R;
-import com.que.mytutor.model.Appointment;
 import com.que.mytutor.model.SubjectModel;
 
 import java.util.ArrayList;
@@ -69,14 +64,15 @@ public class AddAppointmentFragment extends DialogFragment {
     }
     private final List<SubjectModel> Items = new ArrayList<>();
     private MaterialButton btn_subject_picker;
+    private boolean subject = false, time  = false, date = false;
+    private String subject_id = null;
     private void ConnectView(View view)
     {
         MaterialButton btn_date_picker = view.findViewById(R.id.btn_date_picker);
         MaterialButton btn_time_picker = view.findViewById(R.id.btn_time_picker);
-        btn_subject_picker = view.findViewById(R.id.btn_subject_picker);
+         btn_subject_picker = view.findViewById(R.id.btn_subject_picker);
         MaterialButton btn_submit_appointment = view.findViewById(R.id.btn_submit_appointment);
         FloatingActionButton close_fab_app = view.findViewById(R.id.close_fab_app);
-
 
 
 
@@ -85,21 +81,34 @@ public class AddAppointmentFragment extends DialogFragment {
             @Override
             public void onClick(View v)
             {
-                if(btn_date_picker.getText().toString().contains("DATE")){
+                if(!date)
+                {
                     btn_date_picker.setError("Select dates");
                     return;
                 }
-                if(btn_time_picker.getText().toString().contains("DATE")){
+                if(!time){
                     btn_time_picker.setError("Select time");
                     return;
                 }
-                Appointment data = new Appointment("-", null, btn_time_picker.getText().toString(),
-                        btn_date_picker.getText().toString(), FirebaseAuth.getInstance().getUid(), "Request",
-                        btn_subject_picker.getText().toString());
+                if(!subject){
+                    btn_subject_picker.setError("Select subject");
+                    return;
+                }
+
+
+                HashMap<String, Object> map = new HashMap<>();
+                map.put("mentor_id", null);
+                map.put("id", null);
+                map.put("time", btn_time_picker.getText().toString());
+                map.put("date", btn_date_picker.getText().toString());
+                map.put("stud_id", FirebaseAuth.getInstance().getUid());
+                map.put("status", "Request");
+                map.put("subject", btn_subject_picker.getText().toString());
+                map.put("time_stamp", FieldValue.serverTimestamp());
 
                 FirebaseFirestore.getInstance()
                         .collection("Appointments")
-                        .add(data).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        .add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference)
                     {
@@ -138,6 +147,12 @@ public class AddAppointmentFragment extends DialogFragment {
                                 .setConfirmText("Ok")
                                 .show();
                     }
+                }).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        if(!task.isSuccessful())
+                            dismiss();
+                    }
                 });
 
 
@@ -165,16 +180,18 @@ public class AddAppointmentFragment extends DialogFragment {
                             @Override
                             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
+                                //Toast.makeText(ctx, String.valueOf(queryDocumentSnapshots.size()), Toast.LENGTH_SHORT).show();
                                 if(!queryDocumentSnapshots.isEmpty()) {
                                     try{
+                                        Items.clear();
                                         Items.addAll(queryDocumentSnapshots.toObjects(SubjectModel.class));
-                                        List<String> arr = new ArrayList<>();
-
+                                        String[] arr = new String[Items.size()];
+                                        int i = 0;
                                         for (SubjectModel s : Items) {
-                                            arr.add(s.getSubject());
-
+                                            arr[i] = s.getSubject();
+                                            i++;
                                         }
-                                        SetDiaogSubjects(arr);
+                                        SetDiaogSubjects(arr, Items);
                                     }
                                     catch(Exception ex){
                                         Toast.makeText(ctx, ex.getMessage(), Toast.LENGTH_SHORT).show();
@@ -182,16 +199,6 @@ public class AddAppointmentFragment extends DialogFragment {
                                 }
                             }
                         });
-
-
-
-
-
-
-
-
-
-
             }
         });
 
@@ -212,6 +219,7 @@ public class AddAppointmentFragment extends DialogFragment {
                         public void onTimeSet(TimePicker view, int hourOfDay,
                                               int minute) {
                             btn_time_picker.setText(String.format("%d:%d", hourOfDay, minute));
+                            time =true;
                         }
                     }, mHour, mMinute, false);
             timePickerDialog.show();
@@ -238,7 +246,7 @@ public class AddAppointmentFragment extends DialogFragment {
                                                   int monthOfYear, int dayOfMonth) {
 
                                 btn_date_picker.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-
+                                date = true;
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();
@@ -247,20 +255,36 @@ public class AddAppointmentFragment extends DialogFragment {
             }
         });
     }
-    private void SetDiaogSubjects(List<String> items)
+    private void SetDiaogSubjects(String[] arr, List<SubjectModel> items)
     {
 
+        //Toast.makeText(ctx, arr[0], Toast.LENGTH_SHORT).show();
         try {
             final int[] checkedItem = {-1};
+
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(ctx);
+            alertDialog.setCancelable(false);
+            alertDialog.setTitle("SELECT A SUBJECT");
             alertDialog.setIcon(R.drawable.tenacity);
-            // title of the alert dialog
-            alertDialog.setTitle("Choose an Item");
-            alertDialog.setSingleChoiceItems((ListAdapter) items, checkedItem[0], new DialogInterface.OnClickListener() {
+            alertDialog.setSingleChoiceItems(arr, -1, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    checkedItem[0] = which;
-                    btn_subject_picker.setText(items.get(which));
+                    btn_subject_picker.setText(arr[which]);
+                    subject_id = items.get(which).getId();
+                }
+            });
+            alertDialog.setPositiveButton("CONTINUE", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    subject = true;
+                    dialog.dismiss();
+                }
+            });
+            alertDialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    btn_subject_picker.setText("SELECT  SUBJECT");
                 }
             });
             alertDialog.show();
@@ -277,9 +301,5 @@ public class AddAppointmentFragment extends DialogFragment {
         Objects.requireNonNull(getDialog()).getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth)
-    {
 
-
-    }
 }

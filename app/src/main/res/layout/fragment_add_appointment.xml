@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="@string/select_name"
-        android:visibility="gone"
+        android:visibility="visible"
         android:id="@+id/btn_subject_picker"
         />
 

@@ -21,9 +21,12 @@ import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.ServerTimestamp;
 import com.google.firebase.firestore.SetOptions;
 import com.que.mytutor.R;
 import com.que.mytutor.adapters.MessagesAdapter;
@@ -35,6 +38,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 
 public class MessagingFragment extends Fragment {
@@ -63,16 +67,12 @@ public class MessagingFragment extends Fragment {
     }
 
     private void ConnectViews(View view) {
-        RecyclerView recycler = (RecyclerView) view.findViewById(R.id.RecyclerMessages);
-        FloatingActionButton fabSend = (FloatingActionButton) view.findViewById(R.id.FabSendMessage);
-        InputMessage  = (TextInputEditText)view.findViewById(R.id.InputMessage);
+        RecyclerView recycler = view.findViewById(R.id.RecyclerMessages);
+        FloatingActionButton fabSend = view.findViewById(R.id.FabSendMessage);
+        InputMessage  = view.findViewById(R.id.InputMessage);
         recycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
         MessagesAdapter adapter = new MessagesAdapter(Items);
         recycler.setAdapter(adapter);
-
-
-
-
 
         fabSend.setOnClickListener(v -> {
             if(!InputMessage.getText().toString().isEmpty())
@@ -80,36 +80,34 @@ public class MessagingFragment extends Fragment {
                 HashMap<String, Object> msg = new HashMap<>();
                 msg.put("text", InputMessage.getText().toString().trim());
                 msg.put("uid", FirebaseAuth.getInstance().getUid());
+                msg.put("time_stamp", FieldValue.serverTimestamp());
 
-
+                InputMessage.getText().clear();
                 FirebaseFirestore.getInstance()
                         .collection("Chats")
-                        .document(FirebaseAuth.getInstance().getUid())
+                        .document(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
                         .collection("Message")
                         .add(msg)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
                                 InputMessage.getText().clear();
-                                String currentDate = new SimpleDateFormat("dd/MMM/yyyy HH:mm:ss", Locale.getDefault()).format(new Date());
+
                                 HashMap<String, Object> dates = new HashMap<>();
-                                dates.put("Dates", currentDate);
+                                dates.put("Dates", FieldValue.serverTimestamp());
                                 FirebaseFirestore.getInstance()
                                         .collection("Chats")
                                         .document(FirebaseAuth.getInstance().getUid())
                                         .set(dates);
                             }
-                        })
-
-                ;
+                        });
             }
-
         });
-
         FirebaseFirestore.getInstance()
                 .collection("Chats")
-                .document(FirebaseAuth.getInstance().getUid())
+                .document(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
                 .collection("Message")
+                .orderBy("time_stamp", Query.Direction.ASCENDING)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -119,7 +117,6 @@ public class MessagingFragment extends Fragment {
                                     case ADDED:
                                         Items.add(dc.getDocument().toObject(MessagesModel.class));
                                         adapter.notifyDataSetChanged();
-                                        Toast.makeText(view.getContext(), "", Toast.LENGTH_SHORT).show();
                                         break;
                                     case MODIFIED:
                                         break;
@@ -130,6 +127,5 @@ public class MessagingFragment extends Fragment {
                         }
                     }
                 });
-
     }
 }

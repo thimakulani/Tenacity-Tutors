@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +21,12 @@ import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.que.mytutor.R;
 import com.que.mytutor.adapters.AppointmentAdapter;
 import com.que.mytutor.dialogs.AddAppointmentFragment;
+import com.que.mytutor.model.AppointModel;
 import com.que.mytutor.model.Appointment;
 
 import java.util.ArrayList;
@@ -39,7 +42,7 @@ public class AppointmentFragment extends Fragment {
 
 
 
-    List<Appointment> Items = new ArrayList<>();
+    List<AppointModel> Items = new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +83,7 @@ public class AppointmentFragment extends Fragment {
 
             FirebaseFirestore.getInstance().collection("Appointments")
                     .whereEqualTo("stud_id", FirebaseAuth.getInstance().getUid())
+                    .orderBy("time_stamp", Query.Direction.ASCENDING)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @RequiresApi(api = Build.VERSION_CODES.N)
                         @Override
@@ -91,7 +95,7 @@ public class AppointmentFragment extends Fragment {
                                 for (DocumentChange dc : value.getDocumentChanges()) {
                                     switch (dc.getType()) {
                                         case ADDED:
-                                            Appointment app = dc.getDocument().toObject(Appointment.class);
+                                            AppointModel app = dc.getDocument().toObject(AppointModel.class);
                                             app.setId(dc.getDocument().getId());
                                             Items.add(app);
                                             adapter.notifyDataSetChanged();
@@ -99,18 +103,20 @@ public class AppointmentFragment extends Fragment {
                                         case MODIFIED:
                                             try {
 
-                                                for (Appointment a : Items)
+                                                for (AppointModel a : Items)
                                                 {
-                                                    Appointment doc = dc.getDocument().toObject(Appointment.class);
+                                                    AppointModel doc = dc.getDocument().toObject(AppointModel.class);
+                                                    doc.setId(dc.getDocument().getId());
                                                     if (a.getId().contains(doc.getId())) {
-                                                        a = dc.getDocument().toObject(Appointment.class);
+                                                        a = dc.getDocument().toObject(AppointModel.class);
                                                         adapter.notifyDataSetChanged();
                                                         break;
                                                     }
                                                 }
                                             }
                                             catch (Exception ex){
-                                                Toast.makeText(view.getContext(), "Try:" + ex.getMessage(), Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(view.getContext(), "Try::::::::::::::" + ex.getMessage(), Toast.LENGTH_SHORT).show();
+                                                Log.d("error:::", ex.getMessage());
                                             }
 
                                             break;
