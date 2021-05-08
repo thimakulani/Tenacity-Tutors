@@ -4,6 +4,8 @@
     package="com.que.mytutor">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-sdk   tools:overrideLibrary="com.ismaeldivita.chipnavigation"
+        />
 
     <application
         android:icon="@drawable/tenacity"

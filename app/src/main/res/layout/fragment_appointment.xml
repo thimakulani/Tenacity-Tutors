@@ -11,15 +11,18 @@
         android:layout_height="match_parent"
         android:id="@+id/RecyclerAppointment"
         />
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fab_add_appointment"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         app:fabSize="mini"
+        android:text="@string/txt_book_a_tutor"
         app:tint="@color/white"
-        android:src="@drawable/baseline_addchart_white_24dp"
+        android:drawableEnd="@drawable/baseline_double_arrow_black_24dp"
+        android:drawableTint="@color/white"
+        android:textColor="@color/white"
         tools:ignore="ContentDescription"
         android:layout_margin="10dp"
         />

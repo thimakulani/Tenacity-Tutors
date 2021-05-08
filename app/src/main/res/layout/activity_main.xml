@@ -25,13 +25,14 @@
         android:layout_below="@+id/appBarLayout1"
         android:layout_above="@id/bottom_nav_menu"
         />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+    <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/bottom_nav_menu"
         app:menu="@menu/bottom_nav_menu"
-        style="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cnb_menuResource="@menu/bottom_nav_menu"
+        app:cnb_orientationMode="horizontal" />
+
+
 </RelativeLayout>

@@ -9,8 +9,9 @@
     >
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="230dp"
         app:elevation="0dp"
+        android:background="@color/white"
         android:id="@+id/appBarLayout1"
         >
         <RelativeLayout
@@ -22,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/ProfileImgCover"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 android:src="@mipmap/tenacity"
                 />
 
@@ -47,7 +48,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 app:boxCornerRadiusTopStart="4dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 app:boxCornerRadiusTopEnd="4dp"
                 app:boxCornerRadiusBottomEnd="4dp"
                 app:boxCornerRadiusBottomStart="4dp"
@@ -66,7 +67,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 app:boxCornerRadiusTopStart="4dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 app:boxCornerRadiusTopEnd="4dp"
                 app:boxCornerRadiusBottomEnd="4dp"
                 app:boxCornerRadiusBottomStart="4dp"
@@ -85,7 +86,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 app:boxCornerRadiusTopStart="4dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 app:boxCornerRadiusTopEnd="4dp"
                 app:boxCornerRadiusBottomEnd="4dp"
                 app:boxCornerRadiusBottomStart="4dp"
@@ -105,7 +106,7 @@
                 android:layout_marginTop="10dp"
                 app:boxCornerRadiusTopStart="4dp"
                 app:boxCornerRadiusTopEnd="4dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 app:boxCornerRadiusBottomEnd="4dp"
                 app:boxCornerRadiusBottomStart="4dp"
                 >
@@ -121,7 +122,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_update_profile"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                style="@style/Widget.MaterialComponents.Button"
+                app:backgroundTint="@color/blue_grey_600"
+                app:icon="@drawable/baseline_double_arrow_black_24dp"
+                app:iconGravity="end"
                 app:strokeColor="@color/green_500"
                 android:layout_margin="10dp"
                 android:text="@string/common_google_play_services_update_button"

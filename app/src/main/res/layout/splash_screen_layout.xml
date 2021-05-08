@@ -28,6 +28,7 @@
         android:src="@drawable/tenacity"
         android:layout_below="@+id/txtAppName"
         android:layout_centerVertical="true"
+        android:padding="50dp"
         android:layout_above="@+id/txtDevelopedBy"
         tools:ignore="ContentDescription" />
 

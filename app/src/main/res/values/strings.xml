@@ -41,7 +41,10 @@
     <string name="phone_digits">0123456789</string>
     <string name="date">Date</string>
     <string name="time">Time</string>
-    <string name="select_name">Select Subject</string>
+    <string name="select_name">SUBJECT</string>
     <string name="please_select_the_required">PLEASE SELECT THE REQUIRED</string>
     <string name="submit">SUBMIT</string>
+    <string name="txt_book_a_tutor">Book a Tutor</string>
+    <string name="dropbox_app_key">sl.AwVW8zpvoU5AzDsdmX2QdZJyt3cgrFtNn7DQKEY-qoF8FVHOQLjCOm5qCxHUxUK1qRXyXXiv7fEqaM_nucljWK6Vwc2Nw_pjWxmFPOChv9udcZuniiXZ1KygVeYCac6K8kF-jS4</string>
+    <string name="txt_select_grade">GRADE</string>
 </resources>

@@ -41,7 +41,7 @@ public class MyFirebaseInstanceIDService extends FirebaseMessagingService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
-                        .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
+                        .setSmallIcon(R.drawable.tenacity)
                         .setContentTitle(getString(R.string.app_name))
                         .setContentText(remoteMessage.getNotification().getBody())
                         .setAutoCancel(true)

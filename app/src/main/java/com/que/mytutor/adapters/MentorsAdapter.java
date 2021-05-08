@@ -14,17 +14,16 @@ import com.google.android.material.textview.MaterialTextView;
 import com.que.mytutor.R;
 import com.que.mytutor.dialogs.MentorProfileDialog;
 import com.que.mytutor.interfaces.CircleTransform;
-import com.que.mytutor.model.Mentors;
+import com.que.mytutor.model.TutorsModel;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MentorsAdapter extends RecyclerView.Adapter<MentorViewHolder> {
-    private List<Mentors> Items;
+    private List<TutorsModel> Items;
     private FragmentManager fm;
 
-    public MentorsAdapter(List<Mentors> items, FragmentManager fm) {
+    public MentorsAdapter(List<TutorsModel> items, FragmentManager fm) {
         Items = items;
         this.fm = fm;
     }
@@ -39,8 +38,8 @@ public class MentorsAdapter extends RecyclerView.Adapter<MentorViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MentorViewHolder holder, int position) {
 
-        holder.TxtNames.setText(String.format("%s %s", Items.get(position).getNames(), Items.get(position).getSurname()));
-        holder.TxtDescription.setText(Items.get(position).getDescription());
+        holder.TxtNames.setText(String.format("%s %s", Items.get(position).getName(), Items.get(position).getSurname()));
+        holder.TxtDescription.setText(Items.get(position).getSubjects());
 
         Picasso.get().load(Items.get(position).getImgUrl())
                 .resize(200, 200)

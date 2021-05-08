@@ -222,8 +222,11 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/btn_login"
+
+                app:icon="@drawable/baseline_keyboard_arrow_left_black_24dp"
                 android:textColor="#ffffff"
-                app:backgroundTint="#FF363640"
+                app:backgroundTint="@color/blue_grey_600"
+                app:iconTint="@color/white"
                 app:cornerRadius="15dp" />
         </LinearLayout>
     </ScrollView>

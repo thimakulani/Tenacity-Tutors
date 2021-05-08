@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
@@ -27,7 +27,6 @@ import com.que.mytutor.R;
 import com.que.mytutor.adapters.AppointmentAdapter;
 import com.que.mytutor.dialogs.AddAppointmentFragment;
 import com.que.mytutor.model.AppointModel;
-import com.que.mytutor.model.Appointment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,17 +61,14 @@ public class AppointmentFragment extends Fragment {
     private void ConnectViews(View view) {
         RecyclerView recycler = (RecyclerView)view.findViewById(R.id.RecyclerAppointment);
 
-        FloatingActionButton fab_add_appointment = view.findViewById(R.id.fab_add_appointment);
+        ExtendedFloatingActionButton fab_add_appointment = view.findViewById(R.id.fab_add_appointment);
 
-        fab_add_appointment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        fab_add_appointment.setOnClickListener(v -> {
 
-                AddAppointmentFragment app = new AddAppointmentFragment();
-                app.setCancelable(false);
-                app.show(getChildFragmentManager(), "Appointments");
+            AddAppointmentFragment app = new AddAppointmentFragment();
+            app.setCancelable(false);
+            app.show(getChildFragmentManager(), "Appointments");
 
-            }
         });
 
         recycler.setLayoutManager(new LinearLayoutManager(view.getContext()));

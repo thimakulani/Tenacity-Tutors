@@ -15,14 +15,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.que.mytutor.R;
 import com.que.mytutor.model.AppointModel;
-import com.que.mytutor.model.Appointment;
-import com.que.mytutor.model.Mentors;
+import com.que.mytutor.model.TutorsModel;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentViewHolder>{
@@ -46,19 +42,20 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentViewHold
 
             holder.row_app_date_time.setText(String.format("%s %s", Items.get(position).getDate(), Items.get(position).getDate()));
             holder.row_app_status.setText(Items.get(position).getStatus());
-            if( Items.get(position).getMentor_id() == null){
+            holder.row_app_grade.setText(Items.get(position).getGrade());
+            if( Items.get(position).getTutor_id() == null){
                 holder.row_app_name.setVisibility(View.GONE);
             }
             else{
                 FirebaseFirestore.getInstance()
-                        .collection("Mentors")
-                        .document(Items.get(position).getMentor_id())
+                        .collection("Tutors")
+                        .document(Items.get(position).getTutor_id())
                         .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                                if(value != null){
-                                    Mentors m = value.toObject(Mentors.class);
-                                    holder.row_app_name.setText(String.format("%s %s", m.getNames(), m.getSurname()));
+                                if(value != null && value.exists()){
+                                    TutorsModel m = value.toObject(TutorsModel.class);
+                                    holder.row_app_name.setText(String.format("%s %s", m.getName(), m.getSurname()));
                                     holder.row_app_name.setVisibility(View.VISIBLE);
                                 }
                             }
@@ -100,11 +97,13 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentViewHold
 }
 class AppointmentViewHolder extends RecyclerView.ViewHolder{
     public MaterialTextView row_app_name;
+    public MaterialTextView row_app_grade;
     public MaterialTextView row_app_date_time;
     public MaterialTextView row_app_status;
     public MaterialButton row_app_btn_cancel;
     public AppointmentViewHolder(@NonNull View itemView) {
         super(itemView);
+        row_app_grade = (MaterialTextView)itemView.findViewById(R.id.row_app_grade);
         row_app_name = (MaterialTextView)itemView.findViewById(R.id.row_app_name);
         row_app_date_time = (MaterialTextView)itemView.findViewById(R.id.row_app_date_time);
         row_app_status = (MaterialTextView)itemView.findViewById(R.id.row_app_status);

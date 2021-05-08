@@ -90,7 +90,6 @@ public class LoginFragment extends Fragment {
                         }).addOnFailureListener(e ->
                 {
                     pDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
-
                     pDialog.setTitleText("Oops...");
                     pDialog.setContentText(e.getMessage());
                     pDialog.setConfirmText("OK");
