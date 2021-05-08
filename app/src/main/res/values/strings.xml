@@ -47,4 +47,6 @@
     <string name="txt_book_a_tutor">Book a Tutor</string>
     <string name="dropbox_app_key">sl.AwVW8zpvoU5AzDsdmX2QdZJyt3cgrFtNn7DQKEY-qoF8FVHOQLjCOm5qCxHUxUK1qRXyXXiv7fEqaM_nucljWK6Vwc2Nw_pjWxmFPOChv9udcZuniiXZ1KygVeYCac6K8kF-jS4</string>
     <string name="txt_select_grade">GRADE</string>
+    <string name="txt_upcoming_sessions">UPCOMING SESSIONS</string>
+    <string name="txt_join">Join</string>
 </resources>

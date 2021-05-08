@@ -12,6 +12,10 @@ public class AppointModel {
 
 
 
+    private String meeting_room;
+
+
+
 
 
     public AppointModel() {
@@ -19,7 +23,7 @@ public class AppointModel {
 
 
 
-    public AppointModel(String tutor_id, String id, String time, String date, String stud_id, String status, String subject, String grade) {
+    public AppointModel(String tutor_id, String id, String time, String date, String stud_id, String status, String subject, String grade, String meeting_room) {
         this.tutor_id = tutor_id;
         this.id = id;
         this.time = time;
@@ -28,8 +32,15 @@ public class AppointModel {
         this.status = status;
         this.subject = subject;
         this.grade = grade;
+        this.meeting_room = meeting_room;
+    }
+    public String getMeeting_room() {
+        return meeting_room;
     }
 
+    public void setMeeting_room(String meeting_room) {
+        this.meeting_room = meeting_room;
+    }
     public String getGrade() {
         return grade;
     }

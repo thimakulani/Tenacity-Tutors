@@ -110,6 +110,7 @@ public class AddAppointmentFragment extends DialogFragment {
            map.put("stud_id", FirebaseAuth.getInstance().getUid());
            map.put("status", "Request");
            map.put("grade", btn_grade_picker.getText());
+           map.put("meeting_room", null);
            map.put("subject", btn_subject_picker.getText().toString());
            map.put("time_stamp", FieldValue.serverTimestamp());
 
