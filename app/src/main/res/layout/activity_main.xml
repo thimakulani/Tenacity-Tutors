@@ -14,6 +14,9 @@
             android:id="@+id/tool_bar"
             style="@style/Widget.MaterialComponents.Toolbar"
             app:titleTextColor="@color/white"
+            app:navigationIcon="@drawable/baseline_info_black_24dp"
+            app:navigationIconTint="@color/white"
+
             />
     </com.google.android.material.appbar.AppBarLayout>
 

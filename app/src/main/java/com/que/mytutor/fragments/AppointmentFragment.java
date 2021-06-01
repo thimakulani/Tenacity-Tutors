@@ -1,28 +1,20 @@
 package com.que.mytutor.fragments;
 
-import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.que.mytutor.R;
 import com.que.mytutor.adapters.AppointmentAdapter;
 import com.que.mytutor.dialogs.AddAppointmentFragment;
@@ -59,7 +51,7 @@ public class AppointmentFragment extends Fragment {
     }
 
     private void ConnectViews(View view) {
-        RecyclerView recycler = (RecyclerView)view.findViewById(R.id.RecyclerAppointment);
+        RecyclerView recycler = view.findViewById(R.id.RecyclerAppointment);
 
         ExtendedFloatingActionButton fab_add_appointment = view.findViewById(R.id.fab_add_appointment);
 
@@ -80,45 +72,33 @@ public class AppointmentFragment extends Fragment {
             FirebaseFirestore.getInstance().collection("Appointments")
                     .whereEqualTo("stud_id", FirebaseAuth.getInstance().getUid())
                     .orderBy("time_stamp", Query.Direction.ASCENDING)
-                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                        @RequiresApi(api = Build.VERSION_CODES.N)
-                        @Override
-                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                            if (error != null) {
-                                Toast.makeText(view.getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                            if (value != null) {
-                                for (DocumentChange dc : value.getDocumentChanges()) {
-                                    switch (dc.getType()) {
-                                        case ADDED:
-                                            AppointModel app = dc.getDocument().toObject(AppointModel.class);
-                                            app.setId(dc.getDocument().getId());
-                                            Items.add(app);
-                                            adapter.notifyDataSetChanged();
-                                            break;
-                                        case MODIFIED:
-                                            try {
+                    .addSnapshotListener((value, error) -> {
+                        if (error != null) {
+                            Toast.makeText(view.getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                        if (value != null) {
+                            for (DocumentChange dc : value.getDocumentChanges()) {
+                                switch (dc.getType()) {
+                                    case ADDED:
+                                        AppointModel app = dc.getDocument().toObject(AppointModel.class);
+                                        app.setId(dc.getDocument().getId());
+                                        Items.add(app);
+                                        adapter.notifyDataSetChanged();
+                                        break;
+                                    case MODIFIED:
+                                        try {
+                                            AppointModel doc = dc.getDocument().toObject(AppointModel.class);
+                                            doc.setId(dc.getDocument().getId());
+                                            Items.set(dc.getOldIndex(), doc);
 
-                                                for (AppointModel a : Items)
-                                                {
-                                                    AppointModel doc = dc.getDocument().toObject(AppointModel.class);
-                                                    doc.setId(dc.getDocument().getId());
-                                                    if (a.getId().contains(doc.getId())) {
-                                                        a = dc.getDocument().toObject(AppointModel.class);
-                                                        adapter.notifyDataSetChanged();
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                            catch (Exception ex){
-                                                Toast.makeText(view.getContext(), "Try::::::::::::::" + ex.getMessage(), Toast.LENGTH_SHORT).show();
-                                                Log.d("error:::", ex.getMessage());
-                                            }
+                                        }
+                                        catch (Exception ex) {
+                                            ex.printStackTrace();
+                                        }
 
-                                            break;
-                                        case REMOVED:
-                                            break;
-                                    }
+                                        break;
+                                    case REMOVED:
+                                        break;
                                 }
                             }
                         }
@@ -129,9 +109,6 @@ public class AppointmentFragment extends Fragment {
         }
 
 
-
-    }
-    private void selectSubjectDialog(){
 
     }
 }
